@@ -1,0 +1,42 @@
+@charset "utf-8";
+/* author: tonytian */
+/* mail: kevin903@163.com */
+
+
+/* layer01 */
+.layer01 { width:280px; position:absolute;}
+
+
+
+
+/* layer01 */
+#layerMask { display:none; position:absolute; width:100%; top:0; left:0; background-color:black; z-index:1001;
+ -moz-opacity:0.5; opacity:.50; filter:alpha(opacity=50);}
+#layerLayer { display:none; position:absolute; width:280px; background-color:white; z-index:1002;}
+.layerLayerFrm { width:280px; background:#F00; z-index:-1;}
+.layerLayerInner { display:block; width:280px; z-index:1001;
+ position:absolute; top:0; left:0; background:#FFF;} 
+.ly_top { width:280px; height:30px; background:url(../images/sale_result_bg.gif) no-repeat left top;}
+.ly_middle { width:280px; background:url(../images/sale_result_bg.gif) repeat-y -300px top;}
+.ly_bottom { width:280px; height:8px; font-size:0; background:url(../images/sale_result_bg.gif) no-repeat -600px bottom;}
+.ly_top .ly_tt { width:; height:30px; float:left; line-height:30px; color:#085488; text-indent:10px;}
+
+.close_out,.close_over { width:48px; height:22px; float:right;}
+.close_out { background:url(../images/sale_result_bg.gif) no-repeat -890px top;}
+.close_over { background:url(../images/sale_result_bg.gif) no-repeat -948px top;}
+
+
+
+/* 营业厅 信息 */
+.businessHall { display:block; padding:6px 12px; text-align:left; line-height:20px; color:#111;}
+
+/* 营销结果 信息 */
+.layerBox01,.layerBox02,.layerBox03 { width:260px; margin:0 auto;}
+.layerBox01 { height:28px; line-height:28px; text-align:left; border-bottom:1px #DDD solid;}
+.layerBox01 input { margin-top:4px;}
+.layerBox02 p { display:block; width:100%; line-height:24px; color:#111; text-align:left;}
+.layerBox03 { width:100%; height:30px; margin-top:4px;}
+.layerBox03 input { width:60px; height:23px; background:url(../images/bg_btn04.gif) no-repeat left top; border:none;
+ color:#085488; font-size:12px;}
+.layerBox02 .reason { width:120px; border:none; background:#FFF; border-bottom:1px #1C5180 solid; font-size:12px;}
+

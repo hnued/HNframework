@@ -1,0 +1,22 @@
+﻿@charset "UTF-8";
+/*登录页面样式代码 */
+html,body{color:#1d6fd2;}
+a{color:#1d6fd2;}
+.login_body {background:url(../images/login_bg.jpg) repeat-x #ebf7ff; text-align:left;}
+.login_content { position:absolute;top:20%;left:20%;width:880px;display:block; overflow:hidden;}
+.loginTitle{ font-family:"\5fae\8f6f\96c5\9ed1";font-size:20px}
+.login_left{width:400px;float:left;}
+.login_right { float:left; width:479px;line-height:300px;}
+.login_right_content{margin-top:20px;height:250px;line-height:250px;border-left:1px dotted  #06F; text-align:center}
+
+.ui_form { width:282px; float:left; margin:150px 50px 0px 150px; margin:150px 50px 0px 150px\9; +margin:150px 50px 0px 150px;_margin:150px 50px 0px 80px }
+.ui_form_item { height:45px; line-height:45px; margin:10px 0px; }
+.login_text { background:url(../images/login_text_left.png) left top no-repeat; height:34px; padding:0px 0px 4px 4px; margin:12px 0px -12px 0px; margin:12px 0px -12px 0px\9; +margin:12px 0px -12px 0px;_margin:10px 0px -12px 0px; display:inline-block; overflow:hidden; }
+.login_text .ui_input {height:34px; line-height:32px;border:0px;background:url(../images/login_text.png) right top no-repeat;  font-size:14px; font-family:Verdana, Geneva, sans-serif;margin:0px 0px 0px 0px; margin:0px 0px 0px 0px\9; +margin:-1px 0px 0px 0px;_margin:-1px 0px 0px 0px;  }
+.ssm { padding-left:65px; font-size:12px; margin:5px 0px 25px 0px; }
+.helpclass { margin-left:40px; }
+.login_btn {height:35px;margin-right:5px;padding:0px 0px 0px 4px; display:inline-block; overflow:hidden;background:url(../images/login_but_left.png) left top no-repeat;  }
+.login_btn .ui_button { height:35px; line-height:32px; margin:0px; padding:0px 30px; border:none; background:url(../images/login_but.png) right top no-repeat; font-size:14px; color:#fff; overflow:visible; }
+.btn {width:300px;margin-left:60px;}
+.help { margin:3px 5px -3px 0px; }
+.login_color { color:#003; text-decoration:underline}

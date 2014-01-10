@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="theme/default/styles/main.css">
+<script type="text/javascript" src="../../build/jquery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/init.js"></script>
+
+<script type="text/javascript" src="../../build/tabpanel/js/TabPanel.js"></script>
+<script type="text/javascript" src="../../build/tabpanel/js/Fader.js"></script>
+<script type="text/javascript" src="../../build/tabpanel/js/Math.uuid.js"></script>
+<link rel="stylesheet" type="text/css" href="../../build/tabpanel/css/TabPanel.css">
+
+<title>河南移动需求管理平台</title>
+<script type="text/javascript">
+    //tab函数
+    function tab() {
+        // 标签页渲染
+        var tabpanel = new TabPanel({
+            renderTo:'mainRight_child',
+            autoResizable:true,    //兼容border计算问题，页面布局
+            width:'100%',
+            height:'100%',
+            border:'none',
+            active:0,
+            items:[
+                {id:'newtabid01', title:'首页', html:'<iframe  border=0 src="../../build/dialog/dialog-01.html" frameBorder="no" width="100%" height="100%"></iframe>', closable:false}
+            ]
+        });
+        return tabpanel;
+    }
+
+    //页面加载完开始执行
+    $(document).ready(function () {
+        //tabs
+        var tabpanel = tab();
+        var arrObj=[];
+        $(".menuBottom ul li").each(function(i){
+            var link=$(this).children("a").attr("href");
+            var title=$(this).children("a").text();
+            obj={id:"tabId"+i+1,
+                    title:title,
+                    html:'<iframe src="'+link+'" width="100%" height="100%" frameborder="0"></iframe>',
+                    closable:true,
+                    disabled:false
+                }
+            arrObj.push(obj);
+            $(this).children("a").click(function(event){
+                event.preventDefault();
+                tabpanel.addTab(arrObj[i]);
+				});
+        });
+    });
+</script>
+</head>
+
+<body>
+
+    <!-- header start -->
+    <div class="header">
+        <div class="headerInner">
+            <span><p>欢迎您，<em>田文峰(A100292)</em>组织：UED(100000112941)<a href="login.html" onfocus="this.blur()">退出系统</a></p></span>
+        </div>
+    </div><!-- header stop -->
+    
+    <div class="wrapper">
+    	
+        <div class="menu"><!-- menu -->
+            <div class="menuTop">
+                <ul><!-- 当前：current -->
+                    <li class="current"><em>前端组件</em></li>
+                    <li><em>页面模板</em></li>
+                    <li><em>常用JS函数库</em></li>
+                    <li><em>表单美化</em></li>
+                </ul>
+                <span>&nbsp;</span>
+            </div>
+            
+            <div class="menuBottom" id="con_one_1" style="display:block;">
+                <ul><!-- 当前：current -->
+                    <li class="current"><a href="../../build/dialog/dialog-01.html" onfocus="this.blur()" title="弹出层"><em><img src="theme/default/images/icons/ic07.gif" /></em>弹出层Dialog</a></li>
+                    <li><a href="../../build/ztree/ztree-01.html" onfocus="this.blur()" title="ztree"><em><img src="theme/default/images/icons/ic05.gif" /></em>树Tree</a></li>
+                    <li><a href="../../build/simpleTab/simpleTab.html" onfocus="this.blur()" title="选项卡"><em><img src="theme/default/images/icons/ic08.gif" /></em>选项卡Tab</a></li>
+                    <li><a href="../../build/easyTab/easyTab.html" onfocus="this.blur()" title="选项卡"><em><img src="theme/default/images/icons/ic08.gif" /></em>选项卡Tab(原生JS)</a></li>
+                    <li><a href="../../build/tips/toolTips.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic09.gif" /></em>提示层Tips</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic10.gif" /></em>下拉菜单DropMenu</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic10.gif" /></em>折叠菜单Accordion</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic10.gif" /></em>星标评级StarRating</a></li>
+
+                </ul>
+                <div class="arrow"><!-- 右侧箭头 -->
+                    <span class="al" title="" onclick=""></span>
+                    <span class="ar" title="" onclick=""></span>
+                </div>
+                <div class="leftMask">&nbsp;<!--  --></div>
+            </div>
+            
+            <div class="menuBottom" id="con_one_2">
+                <ul><!-- 当前：current -->
+                    <li class="current"><a href="#" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic20.gif" /></em>登陆页</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic21.gif" /></em>系统登陆首页</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic21.gif" /></em>系统导航页</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic21.gif" /></em>数据查询列表页</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic22.gif" /></em>信息展示页</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic23.gif" /></em>左右两列布局</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic24.gif" /></em>左中右三列布局</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic25.gif" /></em>左部树结构</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic26.gif" /></em>左右双树结构</a></li>
+                </ul>
+                <div class="arrow"><!-- 右侧箭头 -->
+                    <span class="al" title="" onclick=""></span>
+                    <span class="ar" title="" onclick=""></span>
+                </div>
+                <div class="leftMask">&nbsp;<!--  --></div>
+            </div>
+            
+            <div class="menuBottom" id="con_one_3">
+                <ul><!-- 当前：current -->
+                    <li class="current"><a href="../../build/Jslibrary/CookieOperate.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic35.gif" /></em>COOKIE读写</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic23.gif" /></em>浏览器属性获得</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic23.gif" /></em>表格隔行换色</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic23.gif" /></em>Appframe选中行选中CHECKBOX</a></li>
+                    <li><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic23.gif" /></em>回车提交表单</a></li>
+                    <li><a href="../../build/Jslibrary/js_fixedLayer.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic23.gif" /></em>fixed浮动层</a></li>
+                    <li><a href="../../build/fixedlayer/fixedLayer.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic23.gif" /></em>fixed浮动层2</a></li>
+                    <li><a href="../../build/Jslibrary/textRollingOver.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic13.gif" /></em>多行文本上下滚动</a></li>
+                    <li><a href="../../build/Jslibrary/iframeHeightAuto.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic13.gif" /></em>IFRAME自适应内容的高度</a></li>
+                    </ul>
+                <div class="arrow"><!-- 右侧箭头 -->
+                    <span class="al" title="" onclick=""></span>
+                    <span class="ar" title="" onclick=""></span>
+                </div>
+                <div class="leftMask">&nbsp;<!--  --></div>
+            </div>
+            
+            <div class="menuBottom" id="con_one_4">
+                <ul><!-- 当前：current -->
+                    <li class="current"><a href="rightFrameExample.html" onfocus="this.blur()"><em><img src="theme/default/images/icons/ic36.gif" /></em>表单美化</a></li>
+
+                </ul>
+                <div class="arrow"><!-- 右侧箭头 -->
+                    <span class="al" title="" onclick=""></span>
+                    <span class="ar" title="" onclick=""></span>
+                </div>
+                <div class="leftMask">&nbsp;<!--  --></div>
+            </div>
+            
+            <span class="maskL">&nbsp;</span>
+            <span class="maskR">&nbsp;</span>
+            
+        </div>
+    
+       
+       <!-- left start -->
+       	<div class="left">
+            <div class="leftInner" id="mainLeft">
+               	<ul>
+                    <li class="open"><!-- 默认第一个展开，设置状态为open -->
+                        <p><b>功能菜单1</b></p>
+                        <div class="leftContent" style="display:block;"><!-- 默认第一个展开，增加 display:block; -->
+                            1111
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>功能菜单2</b></p>
+                        <div class="leftContent">
+                            2222
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>功能菜单3</b></p>
+                        <div class="leftContent">
+                            3333
+                        </div>
+                    </li>
+                    <li>
+                        <p><b>功能菜单4</b></p>
+                        <div class="leftContent">
+                            4444
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="middle" id="mainMiddle">&nbsp;</div>
+            
+        </div><!-- left stop -->
+        
+        <!-- right start -->
+        <div class="right" id="mainRight">
+            <div id="mainRight_child" style="height:100%;"></div>
+        </div><!-- right stop -->
+
+    </div>
+    <!-- footer start -->
+    <!--<div class="footer">
+        <p>版权所有&nbsp;&copy;&nbsp;亚联河南UED小组</p>
+    </div>-->
+    <!-- footer stop -->
+
+</body>
+</html>

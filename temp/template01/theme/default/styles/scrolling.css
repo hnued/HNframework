@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+
+html {
+	scrollbar-3d-light-color:#fff;
+	scrollbar-arrow-color:#0069C2;
+	scrollbar-base-color:#C3C3C3;
+	scrollbar-darkshadow-color:#fff;
+	scrollbar-face-color:#ddd;
+	scrollbar-highlight-color:#fff;
+	scrollbar-shadow-color:#B6B6B6;
+	scrollbar-track-color:#F3F3F3;
+}

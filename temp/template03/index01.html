@@ -1,0 +1,1279 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="author" content="tonytian" />
+<meta name="copyright" content="" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link href="styles/crm_main.css" type="text/css" rel="stylesheet" />
+<link href="styles/crm_layer.css" type="text/css" rel="stylesheet" />
+<script src="js/jquery-1.8.2.min.js" type="text/javascript"></script>
+<script src="js/select2css.js"></script>
+<script type="text/javascript">
+//自定义菜单宽度调整
+var crm_Width;
+function subMenuWidth(){
+var winWidth = document.body.clientWidth;//取body宽度
+crm_Width = (parseInt(winWidth)-190)+"px";//调整到合适的宽度
+document.getElementById("subMenuDiv").style.width = crm_Width;
+}
+window.onresize = subMenuWidth;
+</script>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		//$("#menuIndex").children("ul").addClass("esopMainMenu");
+		var ulObj=$(".mainMenu");
+		var liNum=ulObj.children("li").length;
+		var divW=$(".menuAll").width();
+		var mainW=$(document).width();
+		ulObj.children("li").each(function(i){
+			currentLi=$(this);
+			var divObj=currentLi.children("div");
+			if(divObj.height()<400){
+				divObj.css({"height":"auto"});
+				divObj.children("iframe").height(divObj.height()-10);
+			}else{
+				divObj.css({"height":"400px"});
+			}
+			currentLi.click(function(){
+				var liObj=$(this);
+				var liObj_left=liObj.position().left;
+				if(i==0){
+					liObj.addClass("menu01_over").siblings().removeClass("menu02_over").removeClass("menu04_over");
+					if(liObj_left+divW<mainW){
+						liObj.children("div").css({"display":"block","left":"0px"});
+					}else{
+						var offset_left=divW-mainW
+						liObj.children("div").css({"display":"block","left":offset_left});
+					}
+					liObj.siblings("li").children("div").css({"display":"none"});
+					liObj.children("div").hover(function(){
+						$(this).css({"display":"block"});
+					},function(){
+						$(this).css({"display":"none"});
+						liObj.removeClass("menu02_over").removeClass("menu01_over").removeClass("menu04_over");
+					});
+				}else if(i==(liNum-1)){
+					liObj.addClass("menu04_over").siblings().removeClass("menu02_over").removeClass("menu01_over");
+					if(liObj_left+divW<mainW){
+						liObj.children("div").css({"display":"block","left":"0px"});
+					}else{
+						var offset_left=divW-mainW
+						liObj.children("div").css({"display":"block","left":offset_left});
+					}
+					liObj.siblings("li").children("div").css({"display":"none"});
+					liObj.children("div").hover(function(){
+						$(this).css({"display":"block"});
+					},function(){
+						$(this).css({"display":"none"});
+						liObj.removeClass("menu02_over").removeClass("menu01_over").removeClass("menu04_over");
+					});
+				}else{
+					liObj.addClass("menu02_over").siblings().removeClass("menu02_over").removeClass("menu01_over").removeClass("menu04_over");
+					if(liObj_left+divW<mainW){
+						liObj.children("div").css({"display":"block","left":"0px"});
+					}else{
+						var offset_left=divW-mainW
+						liObj.children("div").css({"display":"block","left":offset_left});
+					}
+					
+					liObj.siblings("li").children("div").css({"display":"none"});
+					liObj.children("div").hover(function(){
+						$(this).css({"display":"block"});
+					},function(){
+						$(this).css({"display":"none"});
+						liObj.removeClass("menu02_over").removeClass("menu01_over").removeClass("menu04_over");
+					});
+				}
+			});
+			
+			var mulist=currentLi.children("div").children(".muList");
+			mulist.each(function(){
+				var _current_list=$(this);
+				var _span=_current_list.children(".muRight").children("span");
+				_span.each(function(k){
+					$(this).has("img").each(function(){
+						$(this).click(function(){
+							var j=k%4;
+							var _imgObj=$(this);
+							var _muRight_over=_imgObj.siblings(".muRight_over").eq(k);
+							_imgObj.addClass("muOpen");
+							_muRight_over.css({"display":"block"});
+							_imgObj.siblings().removeClass("muOpen");
+							_muRight_over.siblings("div").css({"display":"none"});
+							_muRight_over.children("span").eq(j).addClass("mgTop").siblings("span").removeClass("mgTop");
+
+							_muRight_over.hover(function(){
+							},function(){
+								_muRight_over.css({"display":"none"});
+								_imgObj.removeClass("muOpen");
+							});
+						});
+					});
+				})
+			});
+		});
+	});
+</script>
+<title>中国移动BOSS系统3.0版</title>
+</head>
+
+<body><!-- onLoad="subMenuWidth()" -->
+
+<table class="table01" cellspacing="0" cellpadding="0"><!-- 头部  -->
+  	<tr>
+    	<td class="w180"><!-- logo -->
+			<div class="box01">
+				<span>办理时间：<input type="text" id="t" value="0时0分0秒"></input></span>
+			</div>
+			<!-- 计时方法
+				<button onClick="startTimer()">开始计时</button>
+				<button onClick="stopTimer()">停止计时</button>
+				<button onClick="reTimer()">重新计时</button>
+			-->
+			<script type="text/javascript">
+			//时分秒
+			var h=0,m=0,s=0;  
+			function second(){  
+				s+=1;  
+				if(s>0 && (s%60)==0){m+=1;s=0;}  
+				if(m>0 && (m%60)==0){h+=1;m=0;}  
+				var t=h+"时"+m+"分"+s+"秒";  
+				document.getElementById("t").value=t;  
+			}
+			//中断器
+			var timer = null;
+			
+			//开始计时
+			function startTimer(){
+				if(timer != null){
+					clearInterval(timer);
+				}
+				timer = setInterval("second()",1000);
+			}
+			//停止计时
+			function stopTimer(){
+				if(timer != null){
+					clearInterval(timer);
+					timer = null;
+				}
+			}
+			//从新计时
+			function reTimer(){
+				if(timer != null){
+					clearInterval(timer);
+					timer = null;
+				}
+				h=0,m=0,s=0; 
+				document.getElementById("t").value = "0时0分0秒";
+				timer = setInterval("second()",1000);
+			}
+			</script>
+		</td>
+    	<td class="w320"><!-- 排队机信息&查询 -->
+			<div class="box02">
+				<p>您正在处理综合业务&nbsp;&nbsp;&nbsp;当前排队<b>7062号</b>&nbsp;&nbsp;&nbsp;等待人数<b>35人</b></p>
+				
+				<div class="topSearch">
+					<div class="sch01"><!-- sch01为CRM查询 sch02为知识库搜索 -->
+						<span class="color01">快捷搜索栏</span>
+						<span class="color02">知识库搜索</span>
+					</div>
+					<div class="schRight">
+						<!--div class="simpleSelect">
+							<select id="">
+								<option value="">服务号码</option>
+								<option value="">集团号码</option>
+							</select>
+						</div-->
+						<div class="searchIpt"><input name="" type="text" /></div>
+						<div class="searchBtn"><input name="" type="button" title="搜索" onClick="" /></div>
+					</div>
+					<!--div class="schRight">
+						<div class="simpleSelect">
+							<select id="">
+								<option value="">全文检索</option>
+								<option value="">所在地市</option>
+							</select>
+						</div>
+						<div class="searchIpt"><input name="" type="text" /></div>
+						<div class="searchBtn"><input name="" type="button" title="搜索" onclick="" /></div>
+					</div-->
+				</div>
+				
+			</div>
+		</td>
+    	<td><!-- 排队机按钮&客户分级分层 -->
+			<div class="box03">
+				<div class="topBtn">
+					<input class="btn01" name="" type="button" value="签入签出" />
+					<input class="btn02" name="" type="button" value="叫号" />
+					<input class="btn02" name="" type="button" value="重呼" />
+					<input class="btn02" name="" type="button" disabled="disabled" value="切号" />
+					<input class="btn02" name="" type="button" value="插号" onClick="cutNumber.style.display='block'" />
+					<span class="cutNum" id="cutNumber" style="display:none;"><input class="ipt01" name="" type="text" /></span>
+					
+					<div class="rightSelect"><!-- 新旧版及菜单模式切换 -->
+						<select id="">
+							<option value="">旧版入口</option>
+							<option value="">下拉菜单</option>
+							<option value="">平铺菜单</option>
+						</select>
+					</div>
+					
+					<div class="addBtn"><!-- 右上角增加按钮 -->
+						<input class="btn04" name="" type="button" value="问题" />
+						<input class="btn05" name="" type="button" value="建议(便捷度)" />
+						<input class="btn04" name="" type="button" value="咨询" />
+						<span class="corner"></span>
+					</div>
+					
+				</div>
+				<div class="userRank">
+					<!-- ur01至ur07为彩色图标；ur01_gray至ur07_gray为灰色图标，灰色图标时样式自动控制数字区域不显示  -->
+					<div class="ur01">
+						<p>
+							<em><a href="#">1</a></em>
+							<b><a href="#">2</a></b>
+						</p>
+					</div>
+					<div class="ur02">
+						<p>
+							<em><a href="#">1</a></em>
+							<b><a href="#">2</a></b>
+						</p>
+					</div>
+					<div class="ur03">
+						<p>
+							<em><a href="#">1</a></em>
+							<b><a href="#">2</a></b>
+						</p>
+					</div>
+					<div class="ur04">
+						<p>
+							<em><a href="#">1</a></em>
+							<b><a href="#">2</a></b>
+						</p>
+					</div>
+					<div class="ur05">
+						<p>
+							<em><a href="#">1</a></em>
+							<b><a href="#">2</a></b>
+						</p>
+					</div>
+					<div class="ur06">
+						<p>
+							<em><a href="#">1</a></em>
+							<b><a href="#">2</a></b>
+						</p>
+					</div>
+					<div class="ur07">
+						<p>
+							<em><a href="#">1</a></em>
+							<b><a href="#">2</a></b>
+						</p>
+					</div>
+				</div>
+				
+			</div>
+		</td>
+  	</tr>
+</table>
+
+
+<table class="table02" cellspacing="0" cellpadding="0"><!-- 主菜单 -->
+  	<tr>
+    	<td><!-- 菜单 -->
+			<ul class="mainMenu">
+				<li class="menu01">
+					<img src="images/ic05.gif" />
+					<span><a href="#">综合管理</a></span>
+					<!-- 平铺菜单 -->
+					<div class="menuAll" style="position:absolute; left:0px; top:33px; display:none;">
+						
+						<div class="muList">
+							<div class="muLeft">12580资料变更</div>
+							<div class="muRight">
+								<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更 <img src="images/icon_toUp.gif" /></a></span>
+								<span><a href="#">账单寄送方式变更 <img src="images/icon_toUp.gif" /></a></span>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="muList">
+							<div class="muLeft"><a href="#">12580资料变更</a></div>
+							<div class="muRight">
+					 			<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更</a></span>
+								<span><a href="#">账单寄送方式变更</a></span>
+								<span><a href="#">用户密码修改</a></span>
+								<span><a href="#">用户备注变更</a></span>
+								<span><a href="#">修改客户名称</a></span>
+								<span><a href="#">修改客户资料</a></span>
+								<span><a href="#">与开户客户资料补录</a></span>
+							</div>
+						</div>
+
+					</div>
+				</li>
+				<li class="menu02">
+					<img src="images/ic04.gif" />
+					<span><a href="#">综合查询</a></span>
+					<!-- 平铺菜单 -->
+					<div class="menuAll" style="position:absolute; left:0px; top:33px; display:none;">
+						
+						<div class="muList">
+							<div class="muLeft">12580资料变更</div>
+							<div class="muRight">
+								<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">支付方式变更 <img src="images/icon_toUp.gif" /></a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">账单寄送方式变更</a></span>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="menu02">
+					<img src="images/ic10.gif" />
+					<span><a href="#">综合业务</a></span>
+					<!-- 平铺菜单 -->
+					<div class="menuAll" style="position:absolute; left:0px; top:33px; display:none;">
+						
+						<div class="muList">
+							<div class="muLeft"><a href="#">12580资料变更</a></div>
+							<div class="muRight">
+					 			<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更</a></span>
+								<span><a href="#">账单寄送方式变更</a></span>
+								<span><a href="#">用户密码修改</a></span>
+								<span><a href="#">用户备注变更</a></span>
+								<span><a href="#">修改客户名称</a></span>
+								<span><a href="#">修改客户资料</a></span>
+								<span><a href="#">与开户客户资料补录</a></span>
+							</div>
+						</div>
+						
+						<div class="muList">
+							<div class="muLeft">12580资料变更</div>
+							<div class="muRight">
+								<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更 <img src="images/icon_toUp.gif" /></a></span>
+								<span><a href="#">账单寄送方式变更</a></span>
+								<div class="muRight_over" style="display:none;">
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="muList">
+							<div class="muLeft"><a href="#">12580资料变更</a></div>
+							<div class="muRight">
+					 			<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更</a></span>
+								<span><a href="#">账单寄送方式变更</a></span>
+								<span><a href="#">用户密码修改</a></span>
+								<span><a href="#">用户备注变更</a></span>
+								<span><a href="#">修改客户名称</a></span>
+								<span><a href="#">修改客户资料</a></span>
+								<span><a href="#">与开户客户资料补录</a></span>
+							</div>
+						</div>
+
+					</div>
+				</li>
+				<li class="menu02">
+					<img src="images/ic11.gif" />
+					<span><a href="#">服务网点</a></span>
+				</li>
+				<li class="menu02">
+					<img src="images/ic03.gif" />
+					<span><a href="#">基础业务</a></span>
+					<!-- 平铺菜单 -->
+					<div class="menuAll" style="position:absolute; left:0px; top:33px; display:none;">
+						
+						<div class="muList">
+							<div class="muLeft"><a href="#">资料变更</a></div>
+							<div class="muRight">
+					 			<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更</a></span>
+								<span><a href="#">账单寄送方式变更</a></span>
+								<span><a href="#">用户密码修改</a></span>
+								<span><a href="#">用户备注变更</a></span>
+								<span><a href="#">修改客户名称</a></span>
+								<span><a href="#">修改客户资料</a></span>
+								<span><a href="#">与开户客户资料补录</a></span>
+							</div>
+						</div>
+						
+						<div class="muList">
+							<div class="muLeft">资料变更</div>
+							<div class="muRight">
+								<span><a href="#">支付方式变更 <img src="images/icon_toUp.gif" /></a></span>
+								<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>								
+								<span><a href="#">账单寄送方式变更</a></span>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="muList">
+							<div class="muLeft"><a href="#">资料变更</a></div>
+							<div class="muRight">
+					 			<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更</a></span>
+								<span><a href="#">账单寄送方式变更</a></span>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+
+								<span><a href="#">用户密码修改</a></span>
+								<span><a href="#">用户备注变更 <img src="images/icon_toUp.gif" /></a></span>
+								<span><a href="#">修改客户名称</a></span>
+								<span><a href="#">修改客户资料</a></span>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+
+								<span><a href="#">与开户客户资料补录</a></span>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								
+							</div>
+						</div>
+						
+						<div class="muList">
+							<div class="muLeft"><a href="#">资料变更</a></div>
+							<div class="muRight">
+					 			<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更</a></span>
+								<span><a href="#">账单寄送方式变更</a></span>
+								<span><a href="#">用户密码修改</a></span>
+								<span><a href="#">用户备注变更</a></span>
+								<span><a href="#">修改客户名称</a></span>
+								<span><a href="#">修改客户资料</a></span>
+								<span><a href="#">与开户客户资料补录</a></span>
+							</div>
+						</div>
+						
+						<div class="muList">
+							<div class="muLeft"><a href="#">资料变更</a></div>
+							<div class="muRight">
+					 			<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更</a></span>
+								<span><a href="#">账单寄送方式变更</a></span>
+								<span><a href="#">用户密码修改</a></span>
+								<span><a href="#">用户备注变更</a></span>
+								<span><a href="#">修改客户名称</a></span>
+								<span><a href="#">修改客户资料</a></span>
+								<span><a href="#">与开户客户资料补录</a></span>
+							</div>
+						</div>
+						
+						<div class="muList">
+							<div class="muLeft"><a href="#">资料变更</a></div>
+							<div class="muRight">
+					 			<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更</a></span>
+								<span><a href="#">账单寄送方式变更</a></span>
+								<span><a href="#">用户密码修改</a></span>
+								<span><a href="#">用户备注变更</a></span>
+								<span><a href="#">修改客户名称</a></span>
+								<span><a href="#">修改客户资料</a></span>
+								<span><a href="#">与开户客户资料补录</a></span>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="menu02">
+					<img src="images/ic06.gif" />
+					<span><a href="#">增值服务</a></span>
+				</li>
+				<li class="menu02">
+					<img src="images/ic07.gif" />
+					<span><a href="#">家庭业务</a></span>
+				</li>
+				<li class="menu02">
+					<img src="images/ic01.gif" />
+					<span><a href="#">套餐管理</a></span>
+				</li>
+				<li class="menu02">
+					<img src="images/ic09.gif" />
+					<span><a href="#">铁通业务</a></span>
+				</li>
+				<li class="menu02">
+					<img src="images/ic02.gif" />
+					<span><a href="#">营销活动</a></span>
+				</li>
+				<li class="menu04">
+					<img src="images/ic08.gif" />
+					<span><a href="#">集团业务</a></span>
+					<!-- 平铺菜单 -->
+					<div class="menuAll" style="position:absolute; left:0px; top:33px; display:none;">
+						
+						<div class="muList">
+							<div class="muLeft">12580资料变更</div>
+							<div class="muRight">
+								<span><a href="#">寄送详单业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更 <img src="images/icon_toUp.gif" /></a></span>
+								<span><a href="#">账单寄送方式变更 <img src="images/icon_toUp.gif" /></a></span>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码asfasdf修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注123123123变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+								<div class="muRight_over" style="display:none;">
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span class="mgTop"><a href="#">修改客户名称</a></span>
+									<span><a href="#">用户密码修改</a></span>
+									<span><a href="#">用户备注变更</a></span>
+									<span><a href="#">修改客户名称</a></span>
+								</div>
+							</div>
+						</div>
+						
+						<div class="muList">
+							<div class="muLeft"><a href="#">12580资料变更</a></div>
+							<div class="muRight">
+					 			<span><a href="#">寄送详单888888业务变更</a></span>
+								<span><a href="#">账户普通资料变更</a></span>
+								<span><a href="#">支付方式变更</a></span>
+								<span><a href="#">账单寄送方式变更</a></span>
+								<span><a href="#">用户密码修改</a></span>
+								<span><a href="#">用户备注变更</a></span>
+								<span><a href="#">修改客户名称</a></span>
+								<span><a href="#">修改客户资料</a></span>
+								<span><a href="#">与开户客户资料补录</a></span>
+							</div>
+						</div>
+
+					</div>
+				</li>
+			</ul>
+		</td>
+    	<td><!-- 右侧小按钮 -->
+			<div class="box04">
+				 <a href="#"><img alt="首页" src="images/ic21.gif" /></a><a href="#"><img alt="知识库" src="images/ic22.gif" /></a><a href="#"><img alt="退出" src="images/ic23.gif" /></a>
+			</div>
+		</td>
+  	</tr>
+</table>
+
+<table class="table03" cellspacing="0" cellpadding="0"><!-- 自定义配置 -->
+  	<tr>
+		<td class="w5"></td>
+    	<td class="bg01 w20">
+			<div class="icon">
+				<a href="#"><img src="images/ic24.gif" alt="自定义配置" /></a>
+			</div>
+		</td>
+    	<td class="bg01">
+			<div class="subMenuOuter" id="subMenuDiv" style="width:900px;"><!-- width=body宽度-200px -->
+				<ul class="subMenu" id="subMenuList">
+					<li><a href="#">普通缴费</a></li>
+					<li><a href="#">普通GSM开户</a></li>
+					<li><a href="#">个人业务套餐变更</a></li>
+					<li><a href="#">订购营销活动</a></li>
+					<li><a href="#">过户</a></li>
+					<li><a href="#">换卡参加营销活动</a></li>
+					<li><a href="#">缴费发票打印</a></li>
+					<li><a href="#">往月发票打印</a></li>
+					<li><a href="#">普通缴费</a></li>
+					<li><a href="#">普通GSM开户</a></li>
+					<li><a href="#">个人业务套餐变更</a></li>
+					<li><a href="#">订购营销活动</a></li>
+					<li><a href="#">过户</a></li>
+					<li><a href="#">换卡参加营销活动</a></li>
+				</ul>
+			</div>
+		</td>
+		<td class="bg01 w30 subMenuArrow">
+			<a href="#" onClick="subMenuList.style.marginLeft='-70px'"><img src="images/arrow01_left.gif" alt="左" /></a>
+			<a href="#" onClick="subMenuList.style.marginLeft='0px'"><img src="images/arrow01_right.gif" alt="右" /></a>
+		</td>
+		<td class="bg02 w120"><!-- 快捷搜索 -->
+			<div class="quickSearchOuter">
+				<div class="quickSearch">
+					<input name="" type="text" />
+					<ul class="result" style="display:none;">
+						<li><a href="#">普通业务 -&gt; 预存缴费 -&gt; 普通缴费</a></li>
+						<li><a href="#">套餐管理 -&gt; 开户 -&gt; 普通GSM开户</a></li>
+						<li><a href="#">基础业务 -&gt; 资料变更 -&gt; 账户普通资料变更</a></li>
+					</ul>
+				</div>
+			</div>
+		</td>
+		<td class="w5">&nbsp;</td>
+  	</tr>
+</table>
+
+<table class="table04" cellspacing="0" cellpadding="0"><!-- 主操作区 -->
+  	<tr valign="top">
+    	<td class="w5">&nbsp;</td>
+    	<td class="leftTD"><!-- 左侧 -->
+			
+			
+			
+			<!-- 客户资料 -->
+			<table class="leftTable" cellspacing="0" cellpadding="0">
+			  	<tr>
+					<td valign="top">
+						<table class="title01" cellspacing="0" cellpadding="0">
+						  	<tr id="customer_tr_top" onClick="changeleftcon(this,'customer_tr')">
+								<td class="tt01"><img src="images/ic61.gif" alt="" /></td>
+								<td class="tt02 ttcolor01">客户资料</td>
+								<td>&nbsp;</td>
+						  	</tr>
+						</table>
+					</td>
+			  	</tr>
+			  	<tr id="customer_tr" style="display:none;">
+					<td class="h452" valign="top">
+						<table class="customerInfo" cellspacing="0" cellpadding="0">
+							<tr>
+								<td class="ci01">客户星级</td>
+								<td class="ci02">
+									<img src="images/ic31.gif" /><img src="images/ic31.gif" /><img src="images/ic31.gif" /><img src="images/ic31.gif" /><img src="images/ic31.gif" /><img src="images/icm32.gif" />								</td>
+								<td class="ci03"><span class="userFace01" title="满意">&nbsp;</span></td>
+								<!-- userFace01 满意； userFace02 一般； userFace03 不满意； -->
+							</tr>
+							<tr>
+								<td class="ci01">客户姓名</td>
+								<td class="ci02"><input name="" type="text" value="刘怡杨" /></td>
+								<td class="ci03">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="ci01">SIM卡号</td>
+								<td class="ci02"><input name="" type="text" value="898617701608439936" /></td>
+								<td class="ci03"><img src="images/ic42.gif" alt="卡号信息" onClick="cardInfo.style.display='block'"  /></td>
+							</tr>
+							<tr>
+								<td class="ci01">当前品牌</td>
+								<td class="ci02"><input name="" type="text" value="动感地带时尚MO套餐" /></td>
+								<td class="ci03"><img src="images/ic42.gif" alt="资费介绍" onClick="" /></td>
+							</tr>
+							<tr>
+								<td class="ci01">归属地</td>
+								<td class="ci02"><input name="" type="text" value="郑州" /></td>
+								<td class="ci03">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="ci01">当前状态</td>
+								<td class="ci02"><input name="" type="text" value="正常" /></td>
+								<td class="ci03"><a href="#"><img src="images/ic43.gif" alt="开机" /></a></td>
+							</tr>
+							<tr>
+								<td class="ci01">催停标志</td>
+								<td class="ci02"><input name="" type="text" value="可催可停" /></td>
+								<td class="ci03">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="ci01">延时方式</td>
+								<td class="ci02"><input name="" type="text" value="" /></td>
+								<td class="ci03">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="ci01">积分余额</td>
+								<td class="ci02"><input name="" type="text" value="640" /></td>
+								<td class="ci03"><a href="#"><img src="images/ic43.gif" alt="积分综合查询" /></a></td>
+							</tr>
+							<tr>
+								<td class="ci01">历史欠费</td>
+								<td class="ci02"><input name="" type="text" value="0.00" /></td>
+								<td class="ci03"><a href="#"><img src="images/ic43.gif" alt="普通缴费" /></a></td>
+							</tr>
+							<tr>
+								<td class="ci01">预存款</td>
+								<td class="ci02"><input name="" type="text" value="1203.60" /></td>
+								<td class="ci03"><a href="#"><img src="images/ic43.gif" alt="普通缴费" /></a></td>
+							</tr>
+							<tr>
+								<td class="ci01">即时费用</td>
+								<td class="ci02"><input name="" type="text" value="0.00" /></td>
+								<td class="ci03">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="ci01">VIP客户</td>
+								<td class="ci02"><input name="" type="text" value="否" /></td>
+								<td class="ci03"><a href="#"><img src="images/ic43.gif" alt="客户信息查询" /></a></td>
+							</tr>
+							<tr>
+								<td class="ci01">入网时间</td>
+								<td class="ci02"><input name="" type="text" value="2008-12-15 13:57" /></td>
+								<td class="ci03"><img src="images/ic42.gif" alt="时间信息" onClick="timeInfo.style.display='block'"  /></td>
+							</tr>
+							<tr>
+								<td class="ci01">营业点</td>
+								<td class="ci02"><input name="" type="text" value="郑州市东风路营业厅" /></td>
+								<td class="ci03"><img src="images/ic44.gif" alt="营业点" onClick="add.style.display='block'" /></td>
+							</tr>
+						</table>
+					</td>
+			  	</tr>
+		  	</table>
+			
+			<!-- 其他信息 -->
+			<table class="leftTable" cellspacing="0" cellpadding="0">
+			  	<tr>
+					<td valign="top">
+						<table class="title02" cellspacing="0" cellpadding="0">
+						  	<tr id="otherinfo_tr_top" onClick="changeleftcon(this,'otherinfo_tr')">
+								<td class="tt01"><img src="images/ic62.gif" alt="" /></td>
+								<td class="tt02 ttcolor02">其他信息</td>
+								<td class="tt_out">&nbsp;</td>
+						  	</tr>
+						</table>
+					</td>
+			  	</tr>
+			  	<tr id="otherinfo_tr" style="display:none;">
+					<td class="h452" valign="top">
+						<table class="otherInfo" cellspacing="0" cellpadding="0">
+						  	<tr>
+								<td><a href="#">个人产品列表</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">用户已订购服务</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">集团产品列表</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">梦网产品列表</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">账务关系</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">账单查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">专项月租查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">分摊预存查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">免费资源查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">最低消费查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">业务记录查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">缴费查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">PUK码查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">高级捆绑号码IMEI查询</a></td>
+						  	</tr>
+					  </table>
+
+					</td>
+			  	</tr>
+			</table>
+			
+			<!-- 常用查询 -->
+			<table class="leftTable" cellspacing="0" cellpadding="0">
+			  	<tr>
+					<td valign="top">
+						<table class="title02" cellspacing="0" cellpadding="0">
+						  	<tr id="usualquery_tr_top" onClick="changeleftcon(this,'usualquery_tr')">
+								<td class="tt01"><img src="images/ic63.gif" alt="" /></td>
+								<td class="tt02 ttcolor02">常用查询</td>
+								<td class="tt_out">&nbsp;</td>
+						  	</tr>
+						</table>
+					</td>
+			  	</tr>
+			  	<tr id="usualquery_tr" style="display:none;">
+					<td class="h452" valign="top">
+						<table class="otherInfo" cellspacing="0" cellpadding="0">
+						  	<tr>
+								<td><a href="#">目标客户号码查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">中奖号码查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">特服号码查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">区号查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">10086短信营业厅</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">终端信息查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">多渠道业务受理</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">GPRS短信快速指令查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">常用短信分类表</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">国际漫游|资费|字冠|代码查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">服务代码查询</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">WLAN热点覆盖区域</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">边界漫游小区判断</a></td>
+						  	</tr>
+							<tr>
+								<td><a href="#">家庭卡使用小区查询</a></td>
+						  	</tr>
+					  </table>
+
+					</td>
+			  	</tr>
+			</table>
+			
+			<!-- 登录信息 -->
+			<table class="leftTable" cellspacing="0" cellpadding="0">
+			  	<tr>
+					<td valign="top">
+						<table class="title02" cellspacing="0" cellpadding="0">
+						  	<tr id="login_tr_top" onClick="changeleftcon(this,'login_tr')">
+								<td class="tt01"><img src="images/ic64.gif" alt="" /></td>
+								<td class="tt02 ttcolor02">登录信息</td>
+								<td class="tt_over">&nbsp;</td>
+						  	</tr>
+						</table>
+					</td>
+			  	</tr>
+			  	<tr id="login_tr" style="display:;">
+					<td class="h452" valign="top">
+						<table class="otherInfo" cellspacing="0" cellpadding="0">
+						  	<tr>
+								<td>
+									<span class="sp01">欢迎登录</span>
+									<span class="sp02 bold">张丽佳</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="sp01">登录工号</span>
+									<span class="sp02 bold">A315216</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="sp01">组织编号</span>
+									<span class="sp02">140474</span>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<span class="sp01">组织名称</span>
+									<span class="sp02">郑州市农业路营业厅</span></td>
+							</tr>
+							<tr>
+								<td>
+									<span class="sp01">IP地址</span>
+									<span class="sp02">10.96.19.75</span>
+								</td>
+						  	</tr>
+							<tr>
+								<td class="logout">
+									<input name="" type="button" value="安全退出" />
+								</td>
+						  	</tr>
+							
+					  </table>
+
+					</td>
+			  	</tr>
+			</table>
+
+		</td>
+		
+		<!-- 中间展开/闭合按钮区域； open打开左侧； close关闭左侧 -->
+    	<td class="middleTD open" onClick="">&nbsp;</td>
+		
+		<td class="rightTD"><!-- 右侧 -->
+			<!-- tab标签页； tabOver为当前选项卡；tabOut为未激活选项卡；-->
+			<div class="right">
+				<div class="window">
+					<div class="w_l">
+						<span class="wl_m">
+							<table class="tab" cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="tabOver" style="z-index:107; left:0px;">
+										<span title="" onClick="">首页</span>
+										<em title="关闭" onClick="">关闭</em>
+									</td>
+									<td class="tabOut" style="z-index:106; left:106px;">
+										<span title="" onClick="">普通GSM开户</span>
+										<em title="关闭" onClick="">关闭</em>
+									</td>
+									<td class="tabOut" style="z-index:105; left:212px;">
+										<span title="" onClick="">停机保号</span>
+										<em title="关闭" onClick="">关闭</em>
+									</td>
+									<td class="tabOut" style="z-index:104; left:318px;">
+										<span title="" onClick="">普通缴费</span>
+										<em title="关闭" onClick="">关闭</em>
+									</td>
+									<td class="tabOut" style="z-index:103; left:424px;">  
+										<span title="" onClick="">申请开机</span>
+										<em title="关闭" onClick="">关闭</em>
+									</td>
+									<td class="tabOut" style="z-index:102; left:530px;">
+										<span title="充值卡解除黑名单" onClick="">充值卡解除黑名单</span>
+										<em title="关闭" onClick="">关闭</em>
+									</td>
+								</tr>
+							</table>
+						</span>
+					</div>
+					<div class="w_r"><!--  -->
+						<a href="#"><img src="images/ic51.gif" alt="" /></a><a href="#"><img src="images/ic54.gif" alt="" /></a>
+					</div>
+				
+				</div>
+				
+				<div class="r_co"><!-- frame -->
+					<table class="tab01">
+					  	<tr>
+							<td valign="top">
+								<div class="frame">
+									<iframe src="page01.html" frameborder="0" scrolling="auto"></iframe>
+								</div>
+							</td>
+					  	</tr>
+					</table>
+
+				</div>
+					
+			</div>
+			
+
+	  </td>
+		<td class="w5">&nbsp;</td>
+  	</tr>
+</table>
+
+
+<table class="table03" cellspacing="0" cellpadding="0">
+  	<tr>
+    	<td class="w5">&nbsp;</td>
+		<td class="copyright">中国移动河南公司版权所有&nbsp;&nbsp;&nbsp;亚信联创提供技术支持</td>
+		<td class="w5">&nbsp;</td>
+  	</tr>
+</table>
+
+<!-- 卡号信息弹出层 -->
+<div class="layer01" id="cardInfo" style="z-index:10; left:236px; top:242px; display:none;">
+	<div class="ly_top">
+		<span class="ly_tt">卡号信息</span>
+		<span class="close_out" onMouseOver="this.className='close_over'" onMouseOut="this.className='close_out'" onClick="cardInfo.style.display='none'" title="关闭"></span>
+	</div>
+	<div class="ly_middle">
+		<p class="businessHall">手机号码：13879654886<br />SIM卡号：898617701608439936<br />IMSI：123423898617701608439936</p>
+	</div>
+	<div class="ly_bottom"></div>
+</div>
+
+<!-- 时间信息弹出层 -->
+<div class="layer01" id="timeInfo" style="z-index:10; left:236px; top:540px; display:none;">
+	<div class="ly_top">
+		<span class="ly_tt">时间信息</span>
+		<span class="close_out" onMouseOver="this.className='close_over'" onMouseOut="this.className='close_out'" onClick="timeInfo.style.display='none'" title="关闭"></span>
+	</div>
+	<div class="ly_middle">
+		<p class="businessHall">入网时间：2008-12-15 13:57<br />首次使用：2008-12-15 13:57</p>
+	</div>
+	<div class="ly_bottom"></div>
+</div>
+
+<!-- 营业点信息弹出层 -->
+<div class="layer01" id="add" style="z-index:10; left:236px; top:564px; display:none;">
+	<div class="ly_top">
+		<span class="ly_tt">营业点</span>
+		<span class="close_out" onMouseOver="this.className='close_over'" onMouseOut="this.className='close_out'" onClick="add.style.display='none'" title="关闭"></span>
+	</div>
+	<div class="ly_middle">
+		<p class="businessHall">地址：郑州市东风路营业厅<br />电话：0371-67899876</p>
+	</div>
+	<div class="ly_bottom"></div>
+</div>
+
+
+
+
+</body>
+</html>
+
+<script>
+//控制左部信息样式，最好写循环
+function changeleftcon(obj,tr_id){
+  if(tr_id == "customer_tr"){
+    document.getElementById("customer_tr").style.display = "";
+document.getElementById("otherinfo_tr").style.display = "none";
+document.getElementById("usualquery_tr").style.display = "none";
+document.getElementById("login_tr").style.display = "none";
+document.getElementById("otherinfo_tr_top").childNodes[2].className = "tt_out"
+document.getElementById("usualquery_tr_top").childNodes[2].className = "tt_out"
+document.getElementById("login_tr_top").childNodes[2].className = "tt_out"
+}else if(tr_id == "otherinfo_tr"){
+document.getElementById("customer_tr").style.display = "none";
+document.getElementById("otherinfo_tr").style.display = "";
+document.getElementById("usualquery_tr").style.display = "none";
+document.getElementById("login_tr").style.display = "none";
+document.getElementById("otherinfo_tr_top").childNodes[2].className = "tt_over"
+document.getElementById("usualquery_tr_top").childNodes[2].className = "tt_out"
+document.getElementById("login_tr_top").childNodes[2].className = "tt_out"
+}else if(tr_id == "usualquery_tr"){
+   document.getElementById("customer_tr").style.display = "none";
+document.getElementById("otherinfo_tr").style.display = "none";
+document.getElementById("usualquery_tr").style.display = "";
+document.getElementById("login_tr").style.display = "none";
+document.getElementById("otherinfo_tr_top").childNodes[2].className = "tt_out"
+document.getElementById("usualquery_tr_top").childNodes[2].className = "tt_over"
+document.getElementById("login_tr_top").childNodes[2].className = "tt_out"
+}else {
+document.getElementById("customer_tr").style.display = "none";
+document.getElementById("otherinfo_tr").style.display = "none";
+document.getElementById("usualquery_tr").style.display = "none";
+document.getElementById("login_tr").style.display = "";
+document.getElementById("otherinfo_tr_top").childNodes[2].className = "tt_out"
+document.getElementById("usualquery_tr_top").childNodes[2].className = "tt_out"
+document.getElementById("login_tr_top").childNodes[2].className = "tt_over"
+}
+
+} 
+
+
+</script>
