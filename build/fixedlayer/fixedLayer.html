@@ -1,30 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
+<title>固定位置浮动层</title>
+<link rel="stylesheet" type="text/css" href="../commonStyle/demoCommon.css">
 <script type="text/javascript" src="../jquery/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="js/fixedLayer.js"></script>
-<script type="text/javascript">
-    $(function(){
-        $("#block1").fixedLayer({"offsetX":"right","offsetY":"top"});
-        $("#block2").fixedLayer({"offsetX":"left","offsetY":"bottom"});
-        $("#block3").fixedLayer({"offsetX":"center","offsetY":"center"});
-    });
-</script>
+
 <style>
-html,body{margin:0px;padding: 0px; font:12px Arial,Tahoma,"\5fae\8f6f\96c5\9ed1";}
-pre { background:#EEE; border:1px solid #999 }
-.explainTitle{background: red; border:1px solid #6E6E6E;width:16%;height:80px;line-height:40px; font-size:14px;text-align: center;color: #fff;font-weight: 800;}
+.jq_fixedLayer{background: #53D37E;width:60px;height:20px;color: #fff;font-size: 12px;padding:0px;margin:0px;border-radius: 3px;text-align: center;}
 #block2{width:100%;height:20px; line-height: 20px;}
 </style>
 </head>
 
 <body>
+<p class="explainTitle">适用说明</p>
+<p class="explainText">本组件适用于将一个DIV固定显示在页面的一个位置，滚动条滚动不闪烁。
+</p>
+<p class="explainTitle">兼容性</p>
+<p class="explainText">已测试支持Transitional声明和html5声明,并在ie6、ie10、chrome浏览器下能够正常运行。
+</p>
+<p class="explainTitle">使用方法</p>
+<p class="explainText">根据实际使用需要，页面初始化时选择相应的DOM元素直接调用fixedLayer方法设置offsetX和offsetY即可。属性值可以包括right、left、top、bottom、center，也可以直接指定具体象素值。</p>
+<p class="explainTitle">已知问题</p>
+<p class="explainText">
+    <ol>
+        <li>固定的DIV需要有设定的宽度值，否则初始化时会因无法有效取得outerWidth()而使right属性失效</li>
+        <li>ie6下padding值导致溢出存在遮挡滚动条的情况</li>
+    </ol>
+</p>
 
-    <div id="block1" class="explainTitle">测试块状固定01</div>
-    <div id="block2" class="explainTitle">测试块状固定02</div>
-    <div id="block3" class="explainTitle">测试块状固定03</div>
+    <div id="block2" class="jq_fixedLayer">下部100%宽度固定</div>
+    <div id="block3" class="jq_fixedLayer">中间</div>
+    <div id="block4" class="jq_fixedLayer">右上</div>
+    <div id="block5" class="jq_fixedLayer">右下</div>
+    <div id="block6" class="jq_fixedLayer">左上</div>
+    <div id="block7" class="jq_fixedLayer">左下</div>
     <p>1</p>
     <p>1</p>
     <p>1</p>
@@ -159,3 +170,13 @@ pre { background:#EEE; border:1px solid #999 }
     <p>1</p>
 </body>
 </html>
+<script type="text/javascript">
+    $(function(){
+        $("#block2").fixedLayer({"offsetX":"left","offsetY":"bottom"});
+        $("#block3").fixedLayer({"offsetX":"center","offsetY":"center"});
+        $("#block4").fixedLayer({"offsetX":"right","offsetY":"top"});
+        $("#block5").fixedLayer({"offsetX":"right","offsetY":"bottom"});
+        $("#block6").fixedLayer({"offsetX":"left","offsetY":"top"});
+        //$("#block7").fixedLayer({"offsetX":"left","offsetY":"bottom"});
+    });
+</script>

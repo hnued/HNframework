@@ -1,8 +1,8 @@
 (function($){
 	$.fn.fixedLayer=function(location){
 		var defaultLocation={
-			offsetX:10,  //对象初始位置相对顶部的距离
-			offsetY:10  //对象初始位置相对于左侧的距离
+			offsetX:0,  //对象初始位置相对顶部的距离
+			offsetY:0  //对象初始位置相对于左侧的距离
 		}
 
 		//把参数对象和默认的对象进行合并
@@ -31,7 +31,6 @@
 				winWidth=$(window).width();
 				objHeight=obj.outerHeight(true);
 				objWidth=obj.outerWidth(true);
-
 				//调用计算left和top值的方法
 				offsetValue();
 
@@ -93,7 +92,9 @@
 
 					}else if(location.offsetX=="right"){
 
+
 						left=winWidth-objWidth;
+
 
 					}else{
 
