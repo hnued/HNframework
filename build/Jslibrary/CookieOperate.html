@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Cookie操作</title>
+<link rel="stylesheet" type="text/css" href="../commonStyle/demoCommon.css">
+</head>
+
+<body>
+<p class="explainTitle">适用说明</p>
+<p class="explainText">本组件使用原生JS构建，包含Cookie读取、Cookie存储与Cookie删除三个基础操作。</p>
+<p class="explainTitle">兼容性问题</p>
+<p class="explainText">未发现。</p>
+<p class="explainTitle">使用方法</p>
+<p class="explainText">if(<font color="#FF0000">open_cookie</font>){//使用open_cookie函数判断浏览器是否支持cookie<br />
+<font color="#FF0000">createCookie</font>("cookie_UserAccount",c_UserAccount,30);//<font color="#FF0000">参数：名称,值,有效期(天)</font><br />
+<font color="#FF0000">readCookie</font>("cookie_UserAccount");//读取Cookie项<br />
+<font color="#FF0000">eraseCookie</font>('cookie_UserAccount');//清除Cookie项<br />
+}
+</p>
+
+<p class="explainTitle">JS代码</p>
+<pre>//增加Cookie<br />
+  function createCookie(name, value, days) { <br />
+var expires = ''; <br />
+if (days) { <br />
+var date = new Date(); <br />
+date.setTime(date.getTime() + (days*24*60*60*1000)); <br />
+var expires = '; expires=' + date.toGMTString(); <br />
+} <br />
+document.cookie = name + '=' + value + expires + '; path=/'; <br />
+document.getElementById(&quot;innerHtm&quot;).innerText = &quot;Cookie信息已存储&quot;;<br />
+} </p>
+<p><br />
+  //获取Cookie值<br />
+  function readCookie(name) { <br />
+  var cookieCrumbs = document.cookie.split(';'); <br />
+  var nameToFind = name + '='; <br />
+  for (var i = 0; i &lt; cookieCrumbs.length; i++) { <br />
+  var crumb = cookieCrumbs[i]; <br />
+  while (crumb.charAt(0) == ' ') { <br />
+  crumb = crumb.substring(1, crumb.length); /* delete spaces */ <br />
+  } <br />
+  if (crumb.indexOf(nameToFind) == 0) { <br />
+  return crumb.substring(nameToFind.length, crumb.length); <br />
+  } <br />
+  } <br />
+  return null; <br />
+  } </p>
+<p><br />
+  //删除Cookie<br />
+  function eraseCookie(name) { <br />
+  createCookie(name, '', -1);<br />
+  document.getElementById(&quot;innerHtm&quot;).innerText = &quot;Cookie已清除&quot;;<br />
+  }
+  </pre>
+<p class="explainTitle">使用示例</p>
+<label for="UserAccount">用户名：</label><input type="text" id="UserAccount" />
+
+<button onclick="RememberId();">将用户名写入cookie</button>
+<button onclick="Read_rememberId();">判断是否有COOKIE，如果有就读出</button>
+<button onclick="eraseCookie('cookie_UserAccount')">删除COOKIE</button>
+<div style="color:#fff;width:200px;height:39px;background:#06F;font-size:12px;padding:10px;" id="innerHtm">我是提示框</div>
+
+<script language="JavaScript">
+//判断当前有COOKIE就读取并放入INPUT
+function Read_rememberId(){
+	var test = readCookie("cookie_UserAccount");
+	if (test){
+		document.getElementById("UserAccount").value = test;
+		document.getElementById("innerHtm").innerText = "获取并写入Input";
+	}else{alert("未获取到cookie信息")}
+}
+
+//取得用户名存储到cookie
+function RememberId(){
+	if(open_cookie){//判断是否支持cookie
+		var c_UserAccount = document.getElementById("UserAccount").value;
+		if(c_UserAccount){
+			createCookie("cookie_UserAccount",c_UserAccount,30);//30天有效期
+		}else{alert("用户名为空");}
+	}else{
+		alert("当前浏览器不支持COOKIE");
+	}
+}
+function open_cookie(){
+	 //判断cookie是否开启
+    var cookieEnabled=(navigator.cookieEnabled)? true : false;
+    //如果浏览器不是ie4+或ns6+
+    if (typeof navigator.cookieEnabled=="undefined" && !cookieEnabled){
+        document.cookie="testcookie";
+        cookieEnabled=(document.cookie=="testcookie")? true : falsedocument.cookie="";
+    }
+	
+    if(cookieEnabled){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+
+//增加Cookie
+function createCookie(name, value, days) {   
+    var expires = '';   
+    if (days) {   
+        var date = new Date();   
+        date.setTime(date.getTime() + (days*24*60*60*1000));   
+        var expires = '; expires=' + date.toGMTString();   
+    }   
+    document.cookie = name + '=' + value + expires + '; path=/'; 
+    document.getElementById("innerHtm").innerText = "Cookie信息已存储";
+}   
+//获取Cookie值
+function readCookie(name) {   
+    var cookieCrumbs = document.cookie.split(';');   
+    var nameToFind = name + '=';   
+    for (var i = 0; i < cookieCrumbs.length; i++) {   
+        var crumb = cookieCrumbs[i];   
+        while (crumb.charAt(0) == ' ') {   
+            crumb = crumb.substring(1, crumb.length); /* delete spaces */  
+        }   
+        if (crumb.indexOf(nameToFind) == 0) {   
+            return crumb.substring(nameToFind.length, crumb.length);   
+        }   
+    }   
+    return null;   
+}   
+//删除Cookie
+function eraseCookie(name) {   
+    createCookie(name, '', -1);
+    document.getElementById("innerHtm").innerText = "Cookie已清除";
+}
+</script>
+</body>
+</html>

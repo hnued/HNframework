@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="stylesheet" type="text/css" href="commonStyle/demoCommon.css">
+<link href="ztree/zTreeStyle.css" rel="stylesheet">
+<script src="jquery/jquery-1.8.2.min.js" type="text/javascript"></script>
+<script src="ztree/jquery.ztree.core-3.5.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	// 发送ajax请求json数据
+	$(document).ready(function() {
+		$.ajax({
+			url:'ztree/ztree-01.json',
+			type:"GET",
+			cache:false,
+			dataType : "text",
+			success:function(json){
+				json = eval('{'+json+'}');
+				// 调用生成树的方法
+				generateTree(json);
+			},
+			error:function(){
+				$('#treeDemo').html('发生错误！');
+			}
+		});
+	});
+        
+	// 根据JSON数据生成树
+	function generateTree(zNodes){
+		// 树的配置文件 
+		var setting = {
+			data: {
+				simpleData: {
+					enable: true
+				}
+			}/*,
+			callback: {
+				onClick: function(event, treeId, treeNode){
+					var message = treeNode.isParent?('父节点:  '):('叶子节点:  '+'pId="'+treeNode.pId+'", ');
+					message += ('id="'+treeNode.id+'", ');
+					message += ('name="'+treeNode.name+'"');
+					alert(message);
+				}
+			}*/
+		};
+		// 生成一个树
+		$.fn.zTree.init($('#treeDemo'),setting,zNodes);
+	}
+</script>
+<title>树zTree</title>
+</head>
+
+<body>
+<p class="explainTitle">适用说明</p>
+<p class="explainText">适应用哪些情况？不适用于哪些情况。</p>
+<p class="explainTitle">使用方法</p>
+<p class="explainText">具体使用介绍。</p>
+<p class="explainTitle">示例</p>
+	<ul id="treeDemo" class="ztree"></ul>
+</body>
+</html>

@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* Acting on the demo introduce  */
+html{overflow-x:hidden;}
+body{padding: 16px; color: #666666;}
+pre {background:#EEE; border:1px solid #999;margin:20px;padding:20px; font-family: "Courier New", Courier, monospace; font-size:12px;white-space: pre-wrap;word-wrap: break-word}
+.explainTitle{ margin:8px;font-weight:bold; border-bottom:1px dotted #6E6E6E;height:40px;line-height:40px; font-size:14px}
+.explainText{margin:18px;color:#666;font-size:12px;line-height:24px;font-family: "Courier New", Courier, monospace;}
+.colorRed{ color:#f00;}
+.colorBlue{ color:#03F;}
+h1{font-size: 14px;}
+div.content{font-size: 12px;line-height: 22px;}
+p{font-size: 12px;}

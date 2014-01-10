@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../commonStyle/demoCommon.css">
+<title>多行上下滚动文本</title>
+</head>
+
+<body>
+<p class="explainTitle">适用说明</p>
+<p class="explainText">本代码多适用于在一个页面狭窄区域展示多条公告类内容，多条内容上下循环滚动展示。</p>
+<p class="explainTitle">使用方法</p>
+<p class="explainText"><strong>HTML结构如下</strong></p>
+<pre>&lt;div id=&quot;<span class="colorRed">textRollingOver</span>&quot; style=&quot;<span class="colorRed">height:25px; line-height:25px;</span> width:300px&quot;&gt;<br>&lt;div style=&quot;text-align:left; width:100%; height:25px; line-height:25px&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;#&quot; title=&quot;111&quot;&gt;我是示例，我会上下不停循环滚动&lt;/a&gt;&lt;/div&gt;<br>&lt;div style=&quot;text-align:left; width:100%; height:25px; line-height:25px&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;#&quot; title=&quot;222&quot;&gt;物联网各领域成果丰富 引&quot;量变&quot;到&quot;质变&quot;&lt;/a&gt;&lt;/div&gt;<br>&lt;div style=&quot;text-align:left; width:100%; height:25px; line-height:25px&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;#&quot; title=&quot;333&quot;&gt;异步多核处理器是什么？&lt;/a&gt;&lt;/div&gt;<br>&lt;div style=&quot;text-align:left; width:100%; height:25px; line-height:25px&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;#&quot; title=&quot;444&quot;&gt;云计算颠覆服务器市场：IBM在澳将裁员1500人&lt;/a&gt;&lt;/div&gt;       
+</pre>
+<p class="explainText"><strong>JS代码设置</strong></p>
+<pre>var marqueesRows=<span class="colorRed">4</span>; //滚动行数，与上面的div数目对应<br>var marqueesHeight=<span class="colorRed">25</span>; //滚动区域的高度，请同时修改上面div样式内的高度<br>var marqueeSpeed=<span class="colorRed">30</span>; //滚动速度(越小越快)<br>var pauseTime=<span class="colorRed">100</span>; //停留时间</pre>
+
+<p class="explainTitle">示例</p>
+<div id="textRollingOver" style="font-size:12px;height:25px; line-height:25px; border:1px solid #09F; width:300px;margin-left:30px;">
+<div style="text-align:left; width:100%; height:25px; line-height:25px"><a target="_blank" href="#" title="111" style="text-decoration:none">我是示例，我会上下不停循环滚动</a></div>
+<div style="text-align:left; width:100%; height:25px; line-height:25px"><a target="_blank" href="#" title="222" style="text-decoration:none">物联网各领域成果丰富 引"量变"到"质变"</a></div>
+<div style="text-align:left; width:100%; height:25px; line-height:25px"><a target="_blank" href="#" title="333" style="text-decoration:none">异步多核处理器是什么？</a></div>
+<div style="text-align:left; width:100%; height:25px; line-height:25px"><a target="_blank" href="#" title="444" style="text-decoration:none">云计算颠覆服务器市场：IBM在澳将裁员1500人</a></div>       
+<SCRIPT LANGUAGE="JavaScript">
+var marqueesRows=4; //滚动行数，与上面的div数目对应
+var marqueesHeight=25; //滚动区域的高度，请同时修改上面div样式内的高度
+var marqueeSpeed=30; //滚动速度(越小越快)
+var pauseTime=100; //停留时间
+var stopscroll=false;
+var preTop=0, theTop=marqueesHeight*marqueesRows, currentTop=marqueesHeight, stoptime=0;
+with(textRollingOver){
+	style.width=186; //滚动区域的宽度
+	style.height=marqueesHeight;
+	style.overflowX="visible";
+	style.overflowY="hidden";
+	noWrap=false;
+	onmouseover=new Function("stopscroll=true");
+	onmouseout=new Function("stopscroll=false");
+	innerHTML+=innerHTML;
+	scrollTop=0;
+}
+setInterval("scrollUp()",marqueeSpeed);
+function scrollUp(){//Modified by Dakular
+	if(stopscroll==true) return;
+	currentTop+=1;
+	if(currentTop==marqueesHeight+1){
+		stoptime+=1; currentTop-=1;
+		if(stoptime==pauseTime){currentTop=0; stoptime=0;}
+	}else {
+		preTop=(++textRollingOver.scrollTop);
+		if(preTop==theTop){textRollingOver.scrollTop=0;}
+	}
+}
+</SCRIPT>
+</div>
+</body>
+</html>

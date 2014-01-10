@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../commonStyle/demoCommon.css">
+<title>Iframe根据自身内容高度自适应</title>
+</head>
+
+<body>
+<p class="explainTitle">适用说明</p>
+<p class="explainText">本代码用于解决在页面中使用iframe嵌入页面时，页面内容很多出现滚动条问题，代码可以让iframe高度与其中的内容高度自适应。</p>
+<p class="explainTitle">兼容性问题</p>
+<p class="explainText">仅支持IE6+</p>
+
+<p class="explainTitle">使用方法</p>
+<pre>
+function setIframeHeight() {  
+    var iObj = document.getElementById('<span class="colorRed">ifarmeId</span>'); //指定iframe的id
+    iObj.height =  iObj.contentWindow.document.documentElement.scrollHeight; //设置高度与其内部容器的scrollheight一致
+}
+</pre>
+<p class="explainTitle">示例</p>
+
+<iframe id="FrameId" src="js_fixedLayer.html" width="100%"></iframe>
+<script>
+  window.onload = (function () {  
+var iObj = document.getElementById('FrameId'); 
+iObj.height =  iObj.contentWindow.document.documentElement.scrollHeight; 
+}); 
+</script>
+</body>
+</html>

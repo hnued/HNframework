@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+/*======================
+	提示窗体使用
+======================*/
+.win_top_left{width:6px;height:32px; background:url(win_img/window_header_left.gif) no-repeat}
+.win_top_center{text-align:left; font-size:9pt; color:#039; font-weight:bold;background:url(win_img/window_header_bg.jpg) repeat-x}
+.win_top_right{width:8px; background:url(win_img/window_header_right.gif) no-repeat}
+.win_middle_left{ background:url(win_img/window_center_left.jpg) repeat-y}
+.win_middle_right{ background:url(win_img/window_center_right.jpg) repeat-y}
+.win_middle_center{background:#EAF2FD}
+.win_bottom_left{height:9px;background:url(win_img/window_bottom_left.gif) no-repeat}
+.win_bottom_center{background:url(win_img/window_bottom_bg.jpg) repeat-x}
+.win_bottom_right{background:url(win_img/window_bottom_right.gif) no-repeat}
+.noAlert_td{background-image:url(win_img/noalert_bg.jpg);height:22px}
+.wxf_dlgtit_active1 #txt{
+padding-left:5px;float:left;color:#000;padding-top:2px
+}
+.wxf_xbtn_active{
+width:25px;float:right;height:15px; background:url(win_img/window_header_btn_close.jpg) no-repeat;
+}
+.wxf_xbtn_active:hover{
+	 background:url(win_img/window_header_btn_close_hover.jpg) no-repeat;
+	}
+.wxf_mbtn_active{
+width:25px;float:right;height:15px; background:url(win_img/window_header_btn_fold.jpg) no-repeat;
+}
+.wxf_mbtn_active:hover{
+	 background:url(win_img/window_header_btn_fold_hover.jpg) no-repeat;
+	}
+	</style>
+</head>
+
+<body>
+<script>
+function showcookie(){
+alert(getCookie("popWin"));
+}
+function delcookie(){
+	delCookie("popWin");
+	}
+
+</script>
+<button  onclick="showcookie();">查看cookie</button>
+<button  onclick="delcookie();">删除cookie</button>
+  <div id="wxf_window" style="display:none;position:absolute;width:500px;bottom:0px;right:0px;">
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" id="wxf_window_main">
+  <tr>
+    <td class="win_top_left"></td>
+    <td class="win_top_center">
+    
+<DIV id=dtit class="wxf_dlgtit_active1">
+    <SPAN id=txt class="wxf_title_text">
+        提示
+    </SPAN>
+    <SPAN id=xbtn class=wxf_xbtn_active title=关闭>
+    </SPAN>
+    <SPAN id=mbtn class=wxf_mbtn_active title=收缩>
+    </SPAN>
+</DIV>
+    </td>
+    <td class="win_top_right"></td>
+  </tr>
+  <tbody id="wxf_window_content">
+  <tr>
+    <td class="win_middle_left"></td>
+    <td class="win_middle_center">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>
+    <div style="height:200px;width:100%;overflow:auto;line-height:150%;" id="window_content">
+    <div style="float:left;"><img src="../../../../../commons/htjs/images/44.gif" /></div><p style="line-height:220%;word-break: break-all; font-family:Arial">在下边文本框中录入业务元素时，仅需输入业务元素中文名称，每个业务模块输入后需换行输入下一个业务元素。规则如业务元素规范示例,客户税号,khsh,ora_NUMBER,12,1,1,1,1,,,,,,的含义是业务元素名称,业务元素英文名称,业务类型,业务长度,查询字段标识,列表字段标识、主键字段标示（必须有一个业务元素的主键为1）、是否显示字段标示、引用模块、引用表、引用表列、引用显示列、内联字段。</p>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="noAlert_td"><input id="no_alert"  type="checkbox" style="vertical-align: middle" onclick="set();" /><label for="no_alert">不再提醒</label></td>
+  </tr>
+</table>
+
+		
+</td>
+    <td class="win_middle_right"></td>
+  </tr>
+  </tbody>
+  <tr>
+    <td class="win_bottom_left"></td>
+    <td class="win_bottom_center"></td>
+    <td class="win_bottom_right"></td>
+  </tr>
+</table>
+</div>
+
+
+
+<script language="javascript">
+var makeDrag_flag = false;   
+  
+//让对象支持拖动
+function makeDrag(obj)   
+{   
+    obj.onmousedown = function (e)   
+    {
+		//只允许点击标题拖动
+		if(event.srcElement.className == "win_top_center" || event.srcElement.className == "win_top_left" || event.srcElement.className == "win_top_right" || event.srcElement.className == "wxf_title_text"){
+        var oPos = getObjPos(obj);   
+        var cPos = getCurPos(e);  
+		
+        makeDrag_flag = true;
+        document.onmouseup = function (e){   
+            makeDrag_flag = false;   
+            document.onmousemove = null;   
+            document.onmouseup = null;   
+        };   
+        document.onmousemove = function (e)   
+        {
+           
+		   if (makeDrag_flag)   
+            {   
+                var Pos = getCurPos(e);  
+                obj.style.left = Pos.x - cPos.x + oPos.x + 'px';   
+                obj.style.top = Pos.y - cPos.y + oPos.y + 'px';   
+            }
+        }
+		}
+    }   
+}   
+  
+//取对象位置   
+function getObjPos(obj)   
+{   
+    var x = y = 0;   
+    if (obj.getBoundingClientRect)   
+    {   
+        var box = obj.getBoundingClientRect();   
+        var D = document.documentElement;   
+        x = box.left + Math.max(D.scrollLeft, document.body.scrollLeft) - D.clientLeft;   
+        y = box.top + Math.max(D.scrollTop, document.body.scrollTop) - D.clientTop;        
+    }   
+    else  
+    {   
+        for(; obj != document.body; x += obj.offsetLeft, y += obj.offsetTop, obj = obj.offsetParent );   
+    }   
+    return {'x':x, 'y':y};   
+}   
+  
+//取鼠标位置   
+function getCurPos(e)   
+{   
+    e = e || window.event;   
+    var D = document.documentElement;   
+    if (e.pageX) return {x: e.pageX, y: e.pageY};   
+    return {   
+        x: e.clientX + D.scrollLeft - D.clientLeft,   
+        y: e.clientY + D.scrollTop - D.clientTop       
+    };   
+}
+</script>
+
+
+<script type="text/javascript">
+//让对象支持拖动.
+makeDrag(document.getElementById('wxf_window')); 
+</script>
+
+
+<script type="text/javascript">
+//添加收缩和关闭按钮事件
+var btn_fold = document.getElementById("mbtn");
+var btn_close = document.getElementById("xbtn");
+ if(btn_fold.addEventListener){//firefox
+    btn_fold.addEventListener("click",fold_content,false);
+	btn_close.addEventListener("click",window_close,false);
+         } else {//ie
+    btn_fold.attachEvent("onclick",fold_content);
+	btn_close.attachEvent("onclick",window_close);
+         }
+//关闭窗体
+function window_close(){
+	document.getElementById("wxf_window").style.display = "none";
+	}
+//折叠窗体
+function fold_content(){
+	if(document.getElementById("wxf_window_content").style.display == "none")
+	{
+		document.getElementById("wxf_window_content").style.display = "";
+	}else{
+		document.getElementById("wxf_window_content").style.display = "none";
+		}
+}
+</script>
+
+
+<script type="text/javascript">
+
+//写cookies函数
+function SetCookie(name,value)//两个参数
+{
+	var Days = 30; //此 cookie 将被保存 30 天
+	var exp  = new Date();    //new Date("December 31, 9998");
+	exp.setTime(exp.getTime() + Days*24*60*60*1000);
+	document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+
+function getCookie(name)//取cookies函数       
+{
+	var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+	if(arr != null) return unescape(arr[2]); return null;
+}
+
+function delCookie(name)//删除cookie
+{
+	var exp = new Date();
+	exp.setTime(exp.getTime() - 1);
+	var cval=getCookie(name);
+	if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}
+
+function set(){
+	var checkObj = document.getElementById("no_alert");
+	if (checkObj.checked){SetCookie("popWin", "true");}else{delCookie("popWin");}
+	}
+
+if (getCookie("popWin")){
+	document.getElementById("wxf_window").style.display = "none";
+}else{
+	document.getElementById("wxf_window").style.display = "";
+	}
+</script>
+</body>
+</html>

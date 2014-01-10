@@ -1,0 +1,67 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link rel="stylesheet" type="text/css" href="commonStyle/demoCommon.css">
+<link rel="stylesheet" type="text/css" href="easyTab/css/easyTab.css">
+</head>
+
+<body>
+<p class="explainTitle">适用说明</p>
+<p class="explainText">本组件使用原生JS构建，适用无法引入jquery库的情况。本组件依赖于固定的HTML结构，否则无法正常工作，具体HTML结构请参考下方“HTML结构”章节。</p>
+<p class="explainTitle">使用方法</p>
+<p class="explainText">HTML代码中标签页的ID为id=&quot;easyTab1&quot;，对应内容区域应该是id=&quot;easyTab_1&quot;。</p>
+<p class="explainText">标签区有两种样式，tabCurrent和tabNormal分别对应当前选中的标签与默认的标签。</p>
+<p class="explainText"><b>HTML结构</b></p>
+<pre>&lt;div class=&quot;<span class="colorBlue">easyTab</span>&quot;&gt;<br>  &lt;span class=&quot;<span class="colorRed">tabCurrent</span>&quot; id=&quot;<span class="colorRed">easyTab1</span>&quot; <span class="colorRed">onclick=&quot;setTab('easyTab',1,5)&quot;</span>&gt;<br>  &lt;p&gt;标签ONE&lt;/p&gt;<br>  &lt;/span&gt;<br>  &lt;span class=&quot;<span class="colorRed">tabNormal</span>&quot; id=&quot;easyTab2&quot; onclick=&quot;setTab('easyTab',2,5)&quot;&gt;<br>  &lt;p&gt;标签TWO&lt;/p&gt;<br>  &lt;/span&gt;<br>  &lt;span class=&quot;tabNormal&quot; id=&quot;easyTab3&quot; onclick=&quot;setTab('easyTab',3,5)&quot;&gt;<br>  &lt;p&gt;标签THREE&lt;/p&gt;<br>  &lt;/span&gt;<br>  &lt;span class=&quot;tabNormal&quot; id=&quot;easyTab4&quot; onclick=&quot;setTab('easyTab',4,5)&quot;&gt;<br>  &lt;p&gt;标签FOUR&lt;/p&gt;<br>  &lt;/span&gt;<br>  &lt;span class=&quot;tabNormal&quot; id=&quot;easyTab5&quot; onclick=&quot;setTab('easyTab',5,5)&quot;&gt;<br>  &lt;p&gt;使用iframe嵌入&lt;/p&gt;<br>  &lt;/span&gt;<br>&lt;/div&gt;<br>  <br>&lt;div class=&quot;<span class="colorBlue">tabsContent</span>&quot;&gt;<br>  &lt;div class=&quot;item&quot; id=&quot;<span class="colorRed">easyTab_1</span>&quot;&gt; 我排行老大 &lt;/div&gt;<br>  &lt;div class=&quot;item&quot; id=&quot;easyTab_2&quot; <span class="colorRed">style=&quot;display:none;&quot;</span>&gt; 二一添作五 &lt;/div&gt;<br>  &lt;div class=&quot;item&quot; id=&quot;easyTab_3&quot; style=&quot;display:none;&quot;&gt; 我是第三个标签页 &lt;/div&gt;<br>  &lt;div class=&quot;item&quot; id=&quot;easyTab_4&quot; style=&quot;display:none;&quot;&gt; 4朵金花 &lt;/div&gt;<br>  &lt;div class=&quot;item&quot; id=&quot;easyTab_5&quot; style=&quot;display:none;&quot;&gt;&lt;iframe src=&quot;http://www.baidu.com&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;<br>&lt;/div&gt;<br>
+</pre>
+<p class="explainText"><strong>Javascript代码</strong></p>
+<pre>function setTab(name,cursel,n){<br>	for(i=1;i&lt;=n;i++){<br>	var menu=document.getElementById(name+i);<br>	var con=document.getElementById(name+&quot;_&quot;+i);<br>	menu.className=i==cursel?&quot;tabCurrent&quot;:&quot;tabNormal&quot;;<br>	con.style.display=i==cursel?&quot;block&quot;:&quot;none&quot;;<br>	}<br>}</pre>
+<p class="explainText">setTable(<span class="colorRed">argument1</span>,<span class="colorRed">argument2</span>,<span class="colorRed">argument3</span>)</p>
+<p class="explainText">参数1为标签与内容区ID的前缀，如下方HTML结构中的标签区的ID=&quot;easyTab1&quot;,内容区的ID=&quot;easyTab_1&quot;，此处传入的字符串参数应该是<span class="colorRed">easyTab</span></p>
+<p class="explainText">参数2为标签页的当前索引值，索引值从<span class="colorRed">1</span>开始。</p>
+<p class="explainText">参数3为标签页的数量值，如下方示例中含有5个标签，此处值应该是数值<span class="colorRed">5</span>。</p>
+<p class="explainTitle">示例</p>
+
+
+
+
+
+<div class="easyTab">
+  <span class="tabCurrent" id="easyTab1" onclick="setTab('easyTab',1,5)">
+  <p>标签ONE</p>
+  </span>
+  <span class="tabNormal" id="easyTab2" onclick="setTab('easyTab',2,5)">
+  <p>标签TWO</p>
+  </span>
+  <span class="tabNormal" id="easyTab3" onclick="setTab('easyTab',3,5)">
+  <p>标签THREE</p>
+  </span>
+  <span class="tabNormal" id="easyTab4" onclick="setTab('easyTab',4,5)">
+  <p>标签FOUR</p>
+  </span>
+  <span class="tabNormal" id="easyTab5" onclick="setTab('easyTab',5,5)">
+  <p>使用iframe嵌入</p>
+  </span>
+</div>
+  
+<div class="tabsContent">
+  <div class="item" id="easyTab_1"> 我排行老大 </div>
+  <div class="item" id="easyTab_2" style="display:none;"> 二一添作五 </div>
+  <div class="item" id="easyTab_3" style="display:none;"> 我是第三个标签页 </div>
+  <div class="item" id="easyTab_4" style="display:none;"> 4朵金花 </div>
+  <div class="item" id="easyTab_5" style="display:none;"><iframe src="http://www.baidu.com" style="width:100%;height:200px;"></iframe></div>
+</div>
+<script>
+	function setTab(name,cursel,n){
+	 for(i=1;i<=n;i++){
+	  var menu=document.getElementById(name+i);
+	  var con=document.getElementById(name+"_"+i);
+	  menu.className=i==cursel?"tabCurrent":"tabNormal";
+	  con.style.display=i==cursel?"block":"none";
+	 }
+	}
+</script>
+
+</body>
+</html>

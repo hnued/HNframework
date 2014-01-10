@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+</head>
+
+<body>
+(function ($) {
+    var $body = $('html, body');
+    $.scrollTo = function (selector, offset) {
+        var top = $.isNumeric(selector) ? selector : $(selector).offset().top + (offset || 0);
+        $body.animate({'scrollTop':top});
+    };
+}(jQuery));
+这是一个让页面快速滚动到指定元素位置或指定高度的插件，用法如下
+jQuery(function($){
+  var $content = $('#content');
+  $.scrollTo($content);
+  $('a.go-footer').on('click', function() {
+    $.scrollTo('#footer', -20);
+    return false;
+  });
+  $('a.back-to-top').on('click', function() {
+    $.scrollTo(0);
+    return false;
+  });
+});
+</body>
+</html>

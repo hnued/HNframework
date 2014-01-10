@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery表单插件单选按钮radio和复选按钮checkbox表单美化</title>
+<script type="text/javascript" src="../jquery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/prettyCheckboxes.js"></script>
+<link rel="stylesheet" href="css/prettyCheckboxes.css" type="text/css"/>
+</head>
+<body>
+	<div id="wrap">
+		<form id="checkboxDemo" action="" method="post">
+			<h2>复选框</h2>
+            <label for="checkbox-1" tabindex="1">郑州</label>
+            <input type="checkbox" name="checkbox-1" id="checkbox-1" value="checkbox-1" />
+
+            <label for="checkbox-2" tabindex="2">洛阳</label>
+            <input type="checkbox" name="checkbox-2" id="checkbox-2" value="checkbox-2" />
+
+            <label for="checkbox-3" tabindex="3">开封</label>
+            <input type="checkbox" name="checkbox-3" id="checkbox-3" value="checkbox-3" />
+
+            <label for="checkbox-4" tabindex="4">安阳</label>
+			<input type="checkbox" name="checkbox-4" id="checkbox-4" value="checkbox-4" />
+        
+            <label for="checkbox-5" tabindex="5">全选</label>
+            <input type="checkbox" name="checkbox-5" id="checkbox-5" value="checkbox-5" onclick="checkAllPrettyCheckboxes(this,$('#checkboxDemo'))" />
+            
+            <div class="clear"></div>
+            <input type="submit" value="提交内容" id="" />
+			
+		</form>
+		
+		<br /><br />
+	
+		<form id="radioDemo" action="" method="post">
+			<h2>定制单选按钮</h2>
+            <label for="radio-1" tabindex="1">项目 1</label>
+            <input type="radio" name="radio-button" id="radio-1" value="radio-1" />
+
+            <label for="radio-2" tabindex="2">项目 2</label>
+            <input type="radio" name="radio-button" id="radio-2" value="radio-2" />
+
+            <label for="radio-3" tabindex="3">项目 3</label>
+			<input type="radio" name="radio-button" id="radio-3" value="radio-3" />
+
+            <label for="radio-4" tabindex="4">项目 4</label>
+            <input type="radio" name="radio-button" id="radio-4" value="radio-4" />
+            <div class="clear"></div>
+            <input type="submit" value="提交内容" id="" />
+		</form>
+	
+		<br /><br />
+	
+		<form class="inlineRadios" action="">
+			<h2>插件控制横排显示单选按钮</h2>
+            <label for="radio-5" tabindex="1">项目 1</label>
+            <input type="radio" name="radio-button-inline" id="radio-5" value="radio-1" />
+
+            <label for="radio-6" tabindex="2">项目 2</label>
+            <input type="radio" name="radio-button-inline" id="radio-6" value="radio-2" />
+
+            <label for="radio-7" tabindex="3">项目 3</label>
+			<input type="radio" name="radio-button-inline" id="radio-7" value="radio-3" />
+
+            <label for="radio-8" tabindex="4">项目 4</label>
+            <input type="radio" name="radio-button-inline" id="radio-8" value="radio-4" />
+		
+		</form>
+	</div>
+
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function(){
+		$('#checkboxDemo input[type=checkbox],#radioDemo input[type=radio]').prettyCheckboxes();
+		$('.inlineRadios input[type=radio]').prettyCheckboxes({'display':'inline'});
+	});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link rel="stylesheet" type="text/css" href="../commonStyle/demoCommon.css">
+<script src="../jquery/jquery-1.8.2.min.js"></script>
+<style>
+html,body{margin:10px; font:12px Arial,Tahoma,"\5fae\8f6f\96c5\9ed1";}
+</style>
+</head>
+
+<body>
+<div id="apDiv1" style="position:absolute; width:70px; height:66px; z-index:1; right: 10px; top:10px;background: #EDFAFE; border:1px solid #64BFF7; border-radius:5px; text-align:center;line-height:66px;">apDiv1</div>
+<div id="apDiv2" style="position:absolute;left:10px;bottom:10px;z-index:99;width:70px;height:70px;background: #FEEEC2;border:1px solid #f30; border-radius:5px;text-align:center;line-height:66px;">apDiv2</div>
+
+
+<p class="explainTitle">适用说明</p>
+<p class="explainText">本代码库包含两个常用函数，FloatTop和FloatBottom。FloatTop函数适用于将一个DOM对象固定在页面顶部。FloatBottom函数适用于将一个DOM对象固定在页面底部，且距离底部的高度可以通过参数传入。</p>
+<p class="explainTitle">兼容性问题</p>
+<p class="explainText">仅支持IE6+</p>
+<p class="explainTitle">使用方法</p>
+<p class="explainText">指定需要设置浮动的DOM元素ID即可，如下方所示。FloatBottom函数可以设置距离底部的高度。</p>
+<p class="explainText">$("<font color="#FF0000">#apDiv1</font>").FloatTop(); </p>
+<p class="explainText">$("<font color="#FF0000">#apDiv2</font>").FloatBottom(<font color="#FF0000">300</font>);</p>
+<p class="explainTitle">JS代码</p>
+<pre>
+$.fn.FloatTop = function() {
+    var position = function(element) {
+        var top = element.position().top,
+        pos = element.css("position");
+        $(window).scroll(function() {
+            var scrolls = $(this).scrollTop();
+            if (scrolls > top) {
+                //ie6+直接使用fixed进行定位
+                if (window.XMLHttpRequest) {
+                    element.css({
+                        position: "fixed",
+                        top: 10
+                    });
+                } else {
+                    element.css({
+                        top: scrolls
+                    });
+                }
+            } else {
+                //针对IE6使用absolute定位
+                element.css({
+                    position: "absolute",
+                    top: top
+                });
+            }
+        });
+    };
+    return $(this).each(function() {
+        position($(this));
+    });
+};
+//触发
+$("<font color="#FF0000">#apDiv1</font>").FloatTop(); 
+</pre>
+
+<pre>
+$.fn.FloatBottom = function(offsetValue) {
+    var position = function(element) {
+        var objH = element.height();
+        var top = element.position().top,
+		pos = element.css("position"),clientH = $(window).height();
+        $(window).scroll(function() {
+            var scrolls = $(this).scrollTop();
+                //ie6+直接使用fixed进行定位
+                if (window.XMLHttpRequest) {
+                    //距离底部的距离可根据实际需要调整TOP值
+                    element.css({
+                        position: "fixed",
+                        top: clientH - objH - offsetValue
+                    });
+
+                } else {
+                    element.css({
+                        position: "absolute",
+                        top:scrolls + clientH - objH - offsetValue
+                    });
+					
+                }
+
+        });
+    };
+    return $(this).each(function() {
+        position($(this));
+    });
+};
+$("<font color="#FF0000">#apDiv2</font>").FloatBottom(<font color="#FF0000">300</font>);
+</pre>
+<div style="height:2000px"> </div>
+<script>
+//扩展jquery方法
+$.fn.FloatTop = function() {
+    var position = function(element) {
+        var top = element.position().top,
+        pos = element.css("position");
+        $(window).scroll(function() {
+            var scrolls = $(this).scrollTop();
+            if (scrolls > top) {
+                //ie6+直接使用fixed进行定位
+                if (window.XMLHttpRequest) {
+                    element.css({
+                        position: "fixed",
+                        top: 10
+                    });
+                } else {
+                    element.css({
+                        top: scrolls
+                    });
+                }
+            } else {
+                //针对IE6使用absolute定位
+                element.css({
+                    position: "absolute",
+                    top: top
+                });
+            }
+        });
+    };
+    return $(this).each(function() {
+        position($(this));
+    });
+};
+//绑定 
+$("#apDiv1").FloatTop();
+
+
+
+$.fn.FloatBottom = function(offsetValue) {
+    var position = function(element) {
+        var objH = element.height();
+        var top = element.position().top,
+		pos = element.css("position"),clientH = $(window).height();
+        $(window).scroll(function() {
+            var scrolls = $(this).scrollTop();
+                //ie6+直接使用fixed进行定位
+                if (window.XMLHttpRequest) {
+                    //距离底部的距离可根据实际需要调整TOP值
+                    element.css({
+                        position: "fixed",
+                        top: clientH - objH - offsetValue
+                    });
+
+                } else {
+                    element.css({
+                        position: "absolute",
+                        top:scrolls + clientH - objH - offsetValue
+                    });
+					
+                }
+
+        });
+    };
+    return $(this).each(function() {
+        position($(this));
+    });
+};
+$("#apDiv2").FloatBottom(10);
+</script>
+</body>
+</html>

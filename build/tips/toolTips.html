@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<title>文字提示</title>
+<script type="text/javascript" src="../jquery/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="js/tips.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("li a").toolTips();
+	$(".divToolTips").toolTips();
+	$(".table01  tr  td").toolTips();//{"mouseX":20,"mouseY":8,"objwidth":240}
+	
+});
+</script>
+<style type="text/css">
+	body{margin:0px;padding:0px;}
+	.layer{width:600px;overflow:hidden;margin:20px;}
+	ul,li{list-style:none;margin:0px;padding:0px;}
+	.layer ul li{height:24px;line-height:24px;background:#e6e6e6;font-size:12px;padding:0px 8px;}
+	.table01{border:1px solid red; border-collapse:collapse;}
+	.table01 td{border:1px solid #e6e6e6;padding:8px;}
+	#toolTips{position:absolute;width:240px;height:120px;}
+	.toolTipsTriangle{position:relative;z-index:100;margin-left:10px;background:url(images/triangle.gif) no-repeat;height:7px}
+	.toolTipsContent{position:relative;z-index:99;margin-top:-1px;padding:4px;line-height:150%;font-size:12px;border:1px solid #F19F45; background:#FFFFCC;border-radius: 3px;-moz-border-radius: 3px;-webkit-border-radius: 3px;}
+</style>
+</head>
+<body>
+<div class="divToolTips" title="我是一个DIV，中华人民共和国中华人民共和国中华人民共和国">针对div区域的提示</div>
+<input type="text" id="test" />
+
+	<div class="layer">
+        <ul>
+            <li><a href="#" title="测试数据01">测试数据01</a></li>
+            <li><a href="#" title="呵呵哈哈">呵呵哈哈</a></li>
+            <li><a href="#" title="第三方鬼地">第三方鬼地方</a></li>
+            <li><a href="#" title="她而同样让他忽然">她而同样让他忽然</a></li>
+            <li><a href="#" title="刹许多爽肤水">刹许多爽肤水</a></li>
+            <li><a href="#" title="第三方的官方代表">第三方的官方代表</a></li>
+        </ul>
+        <table class="table01" cellpadding="0" cellspacing="0">
+        	<tr>
+            	<td>表格测试数据列表展示内容</td>
+                <td>梵蒂冈和他办法改变规范化反而突然有人</td>
+            </tr>
+            <tr>
+            	<td>儿童团日月同辉</td>
+                <td>榴莲干豆腐干部分日本</td>
+            </tr>
+        </table>
+        <ol>
+        	<li>测试数据的内容！</li>
+        </ol>
+    </div>
+</body>
+</html>

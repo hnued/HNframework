@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* CSS Document */
+
+.easyTab { height:38px; background:url(../images/tabBg01.gif) repeat-x left 31px; padding-left:12px;margin-top:2px; _padding-left:6px;}
+.easyTab span { display:block; float:left;margin:0px 2px}
+.easyTab span p { margin:0;padding:0;border:0;float:left; font-size:14px;  background:url(../images/tabBg01.gif) no-repeat right -17px; margin-left:16px; padding-right:16px; _margin-left:8px}
+.easyTab .tabCurrent,.tabNormal { background:url(../images/tabBg01.gif) no-repeat left -17px; margin-left:2px; cursor:pointer;}
+.easyTab .tabCurrent { height:32px;}
+.easyTab .tabCurrent p { height:32px; line-height:32px; color: #03C;}
+.easyTab .tabNormal { height:31px;}
+.easyTab .tabNormal p { height:31px; line-height:31px; color:#333;}
+.tabsContent .item{height:200px;width:100%;}

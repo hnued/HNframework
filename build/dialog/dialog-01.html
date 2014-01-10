@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="">
+<meta name="author" content="">
+<script src="../jquery/jquery-1.8.2.min.js" type="text/javascript"></script>
+<script src="js/artDialog.js" type="text/javascript"></script>
+<link href="css/artDialog.css" rel="stylesheet" type="text/css">
+
+<link href="../commonStyle/demoCommon.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+	// 发送ajax请求json数据
+	$(document).ready(function() {
+		$('#demo_div_btn').click(function(){
+    		 art.dialog({
+    			 // 标题内容
+    			 title: '测试弹出div',
+    			 // 消息内容，可以是一个String字符串，也可以是一个HTML元素
+    			 content: document.getElementById('demo_div_div'),
+    			 // 是否开启锁屏，默认为false
+    			 lock: true,
+    			 // 设置是否允许用户拖动位置，默认为true
+    			 drag: false,
+    			 // 设置对话框的尺寸
+    			 width: 300,
+    			 height: 120,
+    			 // 设置对话框相对于父可视区域的位置
+    			 top: '20%',
+    			 left: '30%',
+    			 // 设置是否允许用户调节尺寸，默认为true
+    			 resize: false,
+    			 // 指定点击确认按钮时的回调函数
+    			 ok: function () {
+    				 alert('点击了OK！');
+    				 // 如果返回false则不会关闭当前对话框
+    				 return true;
+    				 // 可以显式地调用this.close()来关闭当前对话框
+    			 },
+    			 // 指定点击取消按钮时的回调函数
+    			 cancel: function () {
+    				 alert('点击了cancel！');
+    				 return true;
+    			 },
+    			 // 10秒钟后自动关闭
+    			 time: 10
+    		 });
+    	 });
+     });
+</script>
+<title>河南移动需求管理平台</title>
+</head>
+
+<body>
+    <h1>弹出层</h1>
+    <div class="content">点击下面的按钮，会在弹出层中显示指定的div中的内容，如果传入的是隐藏元素会给其设置display:block以显示该元素，其他属性与绑定的事件都会完整保留，对话框关闭后此元素又将恢复原来的display属性，并且重新插入原文档所在位置。</div>
+    <h1>使用方法</h1>
+    <div>
+        <code>
+            <p>&lt;script src="../jquery/jquery-1.8.2.min.js type="text/javascript"&gt;&lt;/script&gt;</p>
+            <p>&lt;script src="js/artDialog.js" type="text/javascript"&gt;&lt;/script&gt;</p>
+            <p>&lt;link href="css/artDialog.css" rel="stylesheet"&gt;</p>
+        </code>
+    </div>
+    <h1>使用示例</h1>
+	<input style="margin:16px;" id="demo_div_btn" type="button" value="点击弹出div层"/>
+	<div id='demo_div_div' style='display:none;'>
+		<p>这是一个测试用的Demo! （10秒钟后自动关闭）</p> 
+	</div>
+</body>
+</html>
