@@ -1,0 +1,15 @@
+下载msysGit-fullinstall-1.8.5.2-preview20131230.exe
+https://code.google.com/p/msysgit/downloads/list
+下载TortoiseGit-1.8.6.0-32bit.msi（注意有适用于32位和64位的不同版本，且有不同的语言包可供选择）
+https://code.google.com/p/tortoisegit/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+ReleaseDate+Size+DownloadCount
+
+先安装msysGit，然后安装TortoiseGit
+
+分别安装完成后，从开始菜单里找到TortoiseGit下的puttygen执行并选择Generate。鼠标在上方空白处移动可以加快生成随机KEY。生成后点击Saver private key保存为默认.PPK的扩展名的文件。
+
+
+再从开始菜单里找到TortoiseGit下的settings，在常规设置里检查msysgit的路径是否存在，如果不存在需要手工指写安装msysGit的目录（注意指向到安装目录下的bin子目录下）
+
+
+
+
